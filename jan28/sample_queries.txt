@@ -31,3 +31,38 @@ query = """
 """
 
 ----------------------------------
+List of 2025 teams with 200 homeruns or more
+
+SELECT teamID, sum(HR) as seasonHR
+    FROM batting
+    WHERE yearID = 2025
+    GROUP BY teamID
+    HAVING seasonHR >= 200
+    ORDER BY teamID
+
+---------------------------------------
+Select everything join from batting and teams
+
+SELECT *
+    FROM batting INNER JOIN teams
+    ON batting.teamID = teams.teamID AND batting.yearID = teams.yearID
+
+----------------------------------
+List of all players from 1976 with team name
+
+SELECT playerID, batting.teamID, name
+    FROM batting INNER JOIN teams
+    ON batting.teamID = teams.teamID AND batting.yearID = teams.yearID
+    WHERE batting.yearID = 1976
+
+---------------------------------------------
+Babe Ruth's records, year, team name, and HR
+
+SELECT batting.yearID, name, batting.HR
+    FROM batting INNER JOIN teams
+    ON batting.teamID = teams.teamID AND batting.yearID = teams.yearID
+    WHERE playerID = 'ruthba01'
+    ORDER BY batting.yearID
+
+--------------------------------------
+Did anyone play for more than one team in 1976
